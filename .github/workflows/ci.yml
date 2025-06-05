@@ -37,6 +37,17 @@ jobs:
       # 打包
       - name: Build
         run: yarn build
+      # 准备远程目录
+      - name: Prepare remote directory
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.D_HOST }}
+          username: ${{ secrets.D_USER }}
+          key: ${{ secrets.D_PASS }}
+          script: |
+            rm -rf /www/wwwroot/wms-client/*
+            mkdir -p /www/wwwroot/wms-client
+            chmod 755 /www/wwwroot/wms-client
       # 部署到服务器
       - name: Deploy to Server
         uses: appleboy/scp-action@v0.1.4
@@ -47,4 +58,3 @@ jobs:
           source: "dist/*"
           target: "/www/wwwroot/wms-client"
           strip_components: 1
-          rm: true
