@@ -46,7 +46,7 @@ const App: React.FC = () => {
           children: [
             {
               path: '/inventory/fabric-entry',
-              name: '布料单录入',
+              name: '布料单录入111testss',
               icon: <PlusCircleOutlined />,
             },
             {
