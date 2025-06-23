@@ -14,6 +14,7 @@ import FabricEntry from './pages/inventory/FabricEntry'
 import FabricOrderGeneration from './pages/inventory/FabricOrderGeneration'
 import InventoryList from './pages/inventory/InventoryList'
 import Settings from './pages/inventory/Settings'
+import QRCodeGeneration from './pages/inventory/QRCodeGeneration'
 
 const App: React.FC = () => {
   const location = useLocation()
@@ -109,8 +110,10 @@ const App: React.FC = () => {
         
         {/* 保留旧路由兼容性 */}
         <Route path="/inventory/fabric-entry" element={<FabricEntry />} />
+        <Route path="/inventory/qr-generation" element={<QRCodeGeneration />} />
         <Route path="/inventory/fabric-order-generation" element={<FabricOrderGeneration />} />
         <Route path="/inventory/inventory-list" element={<InventoryList />} />
+        <Route path="/inventory/list" element={<InventoryList />} />
       </Routes>
     </ProLayout>
   )

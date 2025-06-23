@@ -24,6 +24,7 @@ export interface FabricInventory {
   colorName: string;
   colorCode?: string;
   mill: string;
+  batchNumber: string; // 缸号
   weight: number; // 斤为单位
   entryDate: string;
   status: '在库' | '已出库';

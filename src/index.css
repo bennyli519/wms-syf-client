@@ -312,4 +312,75 @@ body {
 .ant-layout-sider .ant-menu-item-selected {
   color: #ffffff !important;
   background-color: #d97706 !important;
+}
+
+/* 批量入库页面样式 */
+.table-row-error {
+  background-color: #fff1f0 !important;
+}
+
+.table-row-error:hover {
+  background-color: #ffe7e6 !important;
+}
+
+/* 统计卡片样式优化 */
+.ant-statistic-title {
+  color: var(--text-secondary) !important;
+  font-size: 14px !important;
+}
+
+.ant-statistic-content {
+  color: var(--text-primary) !important;
+}
+
+.ant-statistic-content-value {
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+
+/* 表格内下拉选择器样式 */
+.ant-table-tbody .ant-select {
+  border: 1px solid transparent;
+}
+
+.ant-table-tbody .ant-select:hover {
+  border-color: var(--primary-color);
+}
+
+.ant-table-tbody .ant-select-focused {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
+}
+
+/* 重量录入弹窗表格样式 */
+.weight-modal-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.weight-modal-table th,
+.weight-modal-table td {
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  text-align: center;
+}
+
+.weight-modal-table th {
+  background-color: var(--bg-color);
+  font-weight: 600;
+}
+
+/* 键盘按键样式 */
+kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #444d56;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #d1d5da;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-weight: 600;
 } 

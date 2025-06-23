@@ -1,6 +1,100 @@
-import { AppDatabase, FabricProduct, FabricColor, ActivityLog } from '../types/index';
+import { AppDatabase, FabricProduct, FabricColor, ActivityLog, FabricInventory } from '../types/index';
 
 const DB_KEY = 'fabricInventoryDb_v1';
+
+// 生成mock库存数据
+const generateMockInventory = (): FabricInventory[] => {
+  const mockData: FabricInventory[] = [];
+  let idCounter = 1;
+  
+  const productNames = ['40支半磨拉架', '30支半磨拉架', '32支精梳棉', '莫代尔混纺', '天丝亚麻'];
+  const colorNames = ['豆沙', '卡其', '藏青', '米白', '深灰'];
+  const mills = ['荣达欣', '105走', '恒昌', '明鑫'];
+  
+  // 生成不同日期
+  const today = new Date();
+  const getRandomDate = (daysAgo: number) => {
+    const date = new Date(today);
+    date.setDate(date.getDate() - Math.floor(Math.random() * daysAgo));
+    return date.toISOString().split('T')[0];
+  };
+  
+  // 为每个产品-颜色-布厂组合生成库存
+  productNames.forEach((productName, pIndex) => {
+    colorNames.forEach((colorName, cIndex) => {
+      mills.forEach((mill, mIndex) => {
+        // 随机决定这个组合的库存数量（0-15疋）
+        const stockCount = Math.floor(Math.random() * 16);
+        
+        for (let i = 0; i < stockCount; i++) {
+          const entryDate = getRandomDate(90); // 90天内的随机入库日期
+          const uniqueId = `F${entryDate.replace(/-/g, '').slice(2)}-${String(idCounter).padStart(4, '0')}`;
+          
+          // 随机决定是否已出库（20%概率）
+          const isDispatched = Math.random() < 0.2 && i < stockCount - 1; // 保证至少有一些在库
+          
+          const item: FabricInventory = {
+            id: uniqueId,
+            type: 'fabric',
+            productName,
+            colorName,
+            mill,
+            batchNumber: `G${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`, // 随机缸号
+            weight: Math.round((Math.random() * 5 + 15) * 10) / 10, // 15-20斤随机重量
+            entryDate,
+            status: isDispatched ? '已出库' : '在库'
+          };
+          
+          // 如果已出库，添加出库信息
+          if (isDispatched) {
+            const dispatchDate = new Date(entryDate);
+            dispatchDate.setDate(dispatchDate.getDate() + Math.floor(Math.random() * 30) + 1);
+            item.dispatchDate = dispatchDate.toISOString().split('T')[0];
+            item.customer = ['华丰制衣', '永盛服饰', '明鑫纺织', '恒昌实业', '荣达制造'][Math.floor(Math.random() * 5)];
+          }
+          
+          mockData.push(item);
+          idCounter++;
+        }
+      });
+    });
+  });
+  
+  return mockData;
+};
+
+// 生成mock活动日志
+const generateMockActivityLog = (): ActivityLog[] => {
+  const activities: ActivityLog[] = [];
+  const today = new Date();
+  
+  for (let i = 0; i < 15; i++) {
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    date.setHours(Math.floor(Math.random() * 24), Math.floor(Math.random() * 60));
+    
+    const isEntry = Math.random() > 0.4;
+    const quantity = Math.floor(Math.random() * 8) + 1;
+    const products = ['40支半磨拉架', '30支半磨拉架', '32支精梳棉', '莫代尔混纺', '天丝亚麻'];
+    const customers = ['华丰制衣', '永盛服饰', '明鑫纺织', '恒昌实业', '荣达制造'];
+    
+    if (isEntry) {
+      activities.push({
+        description: `批量入库 ${quantity} 疋${products[Math.floor(Math.random() * products.length)]}`,
+        type: '入库操作',
+        timestamp: date
+      });
+    } else {
+      activities.push({
+        description: `快速出库 ${quantity} 疋${products[Math.floor(Math.random() * products.length)]}`,
+        type: `出库至 ${customers[Math.floor(Math.random() * customers.length)]}`,
+        timestamp: date
+      });
+    }
+  }
+  
+  return activities.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+};
 
 // Mock数据 - 专注于前端交互展示
 const defaultDatabase: AppDatabase = {
@@ -19,9 +113,9 @@ const defaultDatabase: AppDatabase = {
     { id: 5, code: 'B152802/QA', name: '深灰' }
   ],
   fabricMills: ['荣达欣', '105走', '恒昌', '明鑫', '永盛', '华丰'],
-  inventory: [],
+  inventory: generateMockInventory(), // 使用生成的mock数据
   outboundDocs: [],
-  activityLog: []
+  activityLog: generateMockActivityLog() // 使用生成的mock活动日志
 };
 
 export class DataManager {
@@ -31,6 +125,10 @@ export class DataManager {
       const storedData = localStorage.getItem(DB_KEY);
       if (storedData) {
         const parsed = JSON.parse(storedData);
+        // 检查是否有库存数据，如果没有则使用默认mock数据
+        if (!parsed.inventory || parsed.inventory.length === 0) {
+          return JSON.parse(JSON.stringify(defaultDatabase));
+        }
         // 确保数据结构完整
         return {
           ...defaultDatabase,
@@ -42,6 +140,13 @@ export class DataManager {
       console.error('数据库加载失败，使用默认数据:', error);
       return JSON.parse(JSON.stringify(defaultDatabase));
     }
+  }
+
+  // 重置数据库到默认状态
+  static resetDatabase(): AppDatabase {
+    const freshDatabase = JSON.parse(JSON.stringify(defaultDatabase));
+    localStorage.setItem(DB_KEY, JSON.stringify(freshDatabase));
+    return freshDatabase;
   }
 
   // 保存数据

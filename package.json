@@ -13,7 +13,10 @@
     "@ant-design/icons": "^5.2.6",
     "@ant-design/pro-components": "^2.6.43",
     "@ant-design/pro-layout": "^7.17.16",
+    "@types/qrcode": "^1.5.5",
+    "@types/qrcode.react": "^3.0.0",
     "antd": "^5.12.8",
+    "qrcode": "^1.5.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1"
@@ -25,4 +28,4 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
   }
-} 
+}
