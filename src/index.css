@@ -1,3 +1,44 @@
+:root {
+  /* 主色系 - 暖色调amber */
+  --primary-color: #d97706;
+  --primary-hover: #b45309;
+  --primary-light: #fbbf24;
+  --primary-dark: #92400e;
+  
+  /* 侧边栏色系 - 冷色调slate */
+  --sidebar-bg: #1e293b;
+  --sidebar-hover: #334155;
+  --sidebar-selected: #d97706;
+  --sidebar-text: #ffffff;
+  --sidebar-text-secondary: #cbd5e1;
+  
+  /* 背景色系 - 温暖stone */
+  --bg-color: #f5f5f4;
+  --card-bg: #ffffff;
+  --border-color: #e7e5e4;
+  
+  /* 状态色系 */
+  --success-color: #16a34a;
+  --warning-color: #eab308;
+  --error-color: #dc2626;
+  --info-color: #0284c7;
+  
+  /* 文本色系 */
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --text-tertiary: #a8a29e;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-lg: 0 4px 16px rgba(0,0,0,0.15);
+  
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +46,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
 }
 
 * {
@@ -14,4 +57,259 @@ body {
 #root {
   width: 100%;
   height: 100vh;
+}
+
+/* Ant Design 主题覆盖 */
+.ant-layout {
+  background-color: var(--bg-color) !important;
+}
+
+.ant-layout-sider {
+  background-color: var(--sidebar-bg) !important;
+}
+
+.ant-menu-dark,
+.ant-menu.ant-menu-dark {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+  border-right: none !important;
+}
+
+.ant-menu-dark .ant-menu-item,
+.ant-menu.ant-menu-dark .ant-menu-item {
+  color: var(--sidebar-text) !important;
+  border-radius: 6px !important;
+  margin: 4px 8px !important;
+  width: calc(100% - 16px) !important;
+}
+
+.ant-menu-dark .ant-menu-item span,
+.ant-menu.ant-menu-dark .ant-menu-item span {
+  color: var(--sidebar-text) !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background-color: var(--sidebar-selected) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.ant-menu-dark .ant-menu-item:hover {
+  background-color: var(--sidebar-hover) !important;
+  color: white !important;
+}
+
+.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title,
+.ant-menu.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title {
+  color: var(--sidebar-text) !important;
+  border-radius: 6px !important;
+  margin: 4px 8px !important;
+  width: calc(100% - 16px) !important;
+}
+
+.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title span,
+.ant-menu.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title span {
+  color: var(--sidebar-text) !important;
+}
+
+.ant-menu-dark .ant-menu-submenu > .ant-menu-submenu-title:hover {
+  background-color: var(--sidebar-hover) !important;
+  color: white !important;
+}
+
+.ant-menu-dark .ant-menu-submenu-open > .ant-menu-submenu-title {
+  background-color: var(--sidebar-hover) !important;
+  color: white !important;
+}
+
+.ant-menu-dark .ant-menu-item-group-title {
+  color: var(--sidebar-text-secondary) !important;
+}
+
+.ant-menu-dark .ant-menu-submenu .ant-menu-item {
+  margin: 2px 4px 2px 12px !important;
+  width: calc(100% - 24px) !important;
+}
+
+/* Pro Layout 样式优化 */
+.ant-pro-layout .ant-layout-header {
+  background-color: var(--card-bg) !important;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 0 24px !important;
+}
+
+.ant-pro-layout .ant-pro-layout-logo {
+  background-color: var(--sidebar-bg) !important;
+  padding: 16px !important;
+}
+
+.ant-pro-layout .ant-pro-layout-logo h1 {
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+/* 确保所有菜单文本都是白色 - 最高优先级 */
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-item,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-item,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-submenu-title,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-submenu-title,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-item span,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-item span,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-submenu-title span,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-submenu-title span,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-item .ant-menu-title-content,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-item .ant-menu-title-content,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-submenu-title .ant-menu-title-content,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-submenu-title .ant-menu-title-content,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-item .anticon,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-item .anticon,
+.ant-pro-layout .ant-layout-sider .ant-menu.ant-menu-dark .ant-menu-submenu-title .anticon,
+.ant-pro-layout .ant-layout-sider .ant-menu-dark .ant-menu-submenu-title .anticon {
+  color: #ffffff !important;
+}
+
+/* 面包屑样式 */
+.ant-breadcrumb {
+  color: var(--text-secondary);
+}
+
+.ant-breadcrumb a {
+  color: var(--text-secondary);
+}
+
+.ant-breadcrumb a:hover {
+  color: var(--primary-color);
+}
+
+.ant-btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.ant-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md);
+}
+
+.ant-table-thead > tr > th {
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* 自定义样式类 */
+.master-data-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.master-data-card h3 {
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.master-data-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.master-data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--bg-color);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+}
+
+.master-data-item:last-child {
+  margin-bottom: 0;
+}
+
+.master-data-item .content {
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.master-data-item .actions {
+  display: flex;
+  gap: 8px;
+}
+
+.delete-btn {
+  color: var(--error-color);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.delete-btn:hover {
+  opacity: 0.7;
+}
+
+.add-form {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.add-form .ant-form-item {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.page-header {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.page-header h1 {
+  color: var(--text-primary);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.page-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: 16px;
+}
+
+/* 强制所有菜单文本为白色 - 使用通配符确保覆盖 */
+[class*="ant-menu"] * {
+  color: #ffffff !important;
+}
+
+/* 侧边栏内的所有文本都为白色 */
+.ant-layout-sider * {
+  color: #ffffff !important;
+}
+
+/* 特殊处理选中状态 */
+.ant-layout-sider .ant-menu-item-selected *,
+.ant-layout-sider .ant-menu-item-selected {
+  color: #ffffff !important;
+  background-color: #d97706 !important;
 } 
